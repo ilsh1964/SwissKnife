@@ -1,0 +1,17 @@
+#!/usr/bin/expect
+
+# set Variables
+set ipaddr [lrange $argv 0 0]
+
+spawn ssh user@$ipaddr
+expect "assword:"
+send "na,na#@!\r"
+expect "user"
+send "asterisk -x \"core show calls\"\r"
+while 1 {
+expect {
+        "user" {send "exit\r"}
+        eof exit
+        }
+sleep 0.01
+}

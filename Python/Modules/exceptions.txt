@@ -1,0 +1,36 @@
+General usage:
+--------------
+
+
+f=raw_input('Enter filename:')
+try:
+    open(f,'r')
+except:
+    print('File not exist')
+
+
+try:
+    open(f,'r')
+except <IOError>:
+    print('File not exist')
+	
+
+
+
+To protect from unknown error use this code:
+--------------------------------------------
+try:
+    print 1/0
+except Exception, e: 
+    print str(e)
+
+ 
+
+
+Raising Error:
+--------------
+if x=='bad' :
+    raise 'bad option', 'x is a bad value'
+ 
+ 
+

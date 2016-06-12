@@ -1,0 +1,88 @@
+Logging Levels:
+--------------
+CRITICAL   50
+ERROR	 40
+WARNING	 30
+INFO	 20
+DEBUG	 10
+DEBUG will show all above logging level.
+
+
+Example1.log
+------------
+import logging
+logging.basicConfig(filename='example.log',level=logging.DEBUG)
+
+logging.debug('debug msg...')
+logging.info('info msg...')
+logging.warning('warning msg...')
+logging.error('error msg...')
+logging.critical('critical msg...')
+
+Output:
+DEBUG:root:debug msg...
+INFO:root:info msg...
+WARNING:root:warning msg...
+ERROR:root:error msg...
+CRITICAL:root:critical msg..
+
+
+Example2.log
+------------
+import logging
+logging.basicConfig(filename='example.log',level=logging.INFO)
+logging.debug('debug msg...')
+logging.info('info msg...')
+logging.warning('warning msg...')
+logging.error('error msg...')
+logging.critical('critical msg...')
+
+Output:
+INFO:root:info msg...
+WARNING:root:warning msg...
+ERROR:root:error msg...
+CRITICAL:root:critical msg..
+
+
+Example3.log
+------------
+import logging
+logging.basicConfig(filename='example.log',level=logging.WARNING)
+logging.debug('debug msg...')
+logging.info('info msg...')
+logging.warning('warning msg...')
+logging.error('error msg...')
+logging.critical('critical msg...')
+
+Output:
+ARNING:root:warning msg...
+ERROR:root:error msg...
+CRITICAL:root:critical msg..
+
+
+Example4.log
+------------
+import logging
+logging.basicConfig(filename='example.log',level=logging.ERROR)
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
+logging.critical('And this, too')
+
+Output:
+ERROR:root:error msg...
+CRITICAL:root:critical msg..
+
+
+Example4.log
+------------
+import logging
+logging.basicConfig(filename='example.log',level=logging.CRITICAL)
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
+logging.critical('And this, too')
+
+Output:
+CRITICAL:root:critical msg..
+
