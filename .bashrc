@@ -1,6 +1,5 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# .BASHRC version 1.0
+#  Shavit Ilan
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -65,30 +64,13 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-#if [ -f ~/.bash_aliases ]; then
-#    . ~/.bash_aliases
-#fi
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# enable programmable completion features
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
@@ -98,44 +80,33 @@ if [ -d "$HOME/Bin" ] ; then
     PATH="$HOME/Bin:/opt/lampp/bin:$PATH"
 fi
 
+# Alias definitions.
 export EDITOR=vim
 alias top10='du -ks * | sort -nr | head -10'
-alias en='LANG=en_US.UTF8'
 alias rm='rm -i'
 alias cp='cp -i'
-alias xampp='sudo /opt/lampp/lampp start'
 alias mv='mv -i'
-alias p='ps -aef |grep '
-alias df='df -h'
-alias du='du -h'
-alias ls='ls -hF --color=tty'                 # classify files in colour
 alias ll='ls -l'                              # long list
-alias lm="ls -al | more"
 alias la='ls -A'                              # all but . and ..
+alias lk="ps -aef |grep -i "
 alias h=history                     # show the history of commands issued
-alias nu="who|wc -l"                # nu - number of users
-alias np="ps -ef|wc -l"             # np - number of processes running
 alias cd..="cd ../.."
-alias cd...="cd ../../.."
 alias en='export LANG=en_US.UTF8'
 alias he='export LANG=he_IL.UTF8'
 alias path="echo $PATH"
-alias lk="ps -aef |grep -i "
-alias install='sudo apt-get install' 
-alias reinstall='sudo apt-get install --reinstall' 
-alias search='apt search'
-alias purge='sudo apt-get purge'
-alias clean='sudo apt-get clean'
-alias update='echo "ilan1234" | sudo -S  apt update' 
-alias upgrade='echo "ilan1234" |sudo apt update; sudo -S  apt dist-upgrade'
-alias add-ppa='sudo add-apt-repository'	# add-apt-repository ppa:tualatrix/ppa
 alias g='vim --remote-silent'
 alias lk='ps -aef |grep -i '
 alias pi='ssh pi@10.0.0.100'
 alias lampp='sudo /opt/lampp/lampp start'
-alias doc='cd ~/Documents'
-alias music='cd ~/Music'
-alias gitupdate='git add . && git commit -m "Another Commit" && git push'
-alias cputemp='sensors | grep Core'
-# Youtube-dl exapmle: 
+alias vimrc='grep VIMRC ~/.vimrc'
+alias bashrc='grep .BASHRC ~/.bashrc |grep -v alias'
+
+#APT alias
+alias install='sudo apt install'
+alias reinstall='sudo apt install --reinstall'
+alias search='apt search'
+alias purge='sudo apt purge'
+alias clean='sudo apt clean'
+
+# Youtube-dl exapmle:
 # youtube-dl -x --audio-format "mp3" --audio-quality "0"  YOUTUBE_LINK
