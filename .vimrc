@@ -1,3 +1,6 @@
+" VIMRC Version: 1.0
+" Shavit Ilan
+"
 " VUNDLE PLUGIN
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -75,7 +78,7 @@ set pastetoggle=<F2>
 set clipboard+=unnamed
 
 " Mouse and backspace
-set mouse=a  " on OSX press ALT and click
+set mouse=r  " on OSX press ALT and click
 set bs=2     " make backspace behave like normal again
 
 " Rebind <Leader> key
