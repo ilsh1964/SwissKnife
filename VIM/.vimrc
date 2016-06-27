@@ -1,5 +1,5 @@
-" VIMRC Version: 1.0
-" Shavit Ilan
+" VIMRC Version: 1.2
+" Shavit Ilan 2016-06-27
 "
 " VUNDLE PLUGIN
 set nocompatible              " be iMproved, required
