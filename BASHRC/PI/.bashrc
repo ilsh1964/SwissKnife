@@ -1,4 +1,4 @@
-# .BASHRC version 1.2 (2016-06-27)
+# .BASHRC version 1.3 (2016-06-27)
 #  Shavit Ilan
 
 # If not running interactively, don't do anything
@@ -10,7 +10,8 @@ export HISTCONTROL=ignoreboth
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 
-PS1='[\u@\h:\w]$ '
+# PS1='[\u@\h:\w]$ '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w \$\[\033[00m\] '
 PS2='> '
 
 # enable color support of ls and also add handy aliases

@@ -1,5 +1,5 @@
-# .BASHRC version 1.1 (2016-06-23)
-#  Shavit Ilan
+# .BASHRC version 1.3 (2016-06-27)
+#         Shavit Ilan
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -12,8 +12,9 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-PS1='\[\u@\h \w\]$ '
-PS2='\ '
+# PS1='[\u@\h:\w]$ '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w \$\[\033[00m\] '
+PS2='> '
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

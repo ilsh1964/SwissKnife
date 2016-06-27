@@ -1,4 +1,4 @@
-# .BASHRC WORK-SERVER  ver: 1.2 (2016-06-27)
+# .BASHRC WORK-SERVER  ver: 1.3 (2016-06-27)
 # Shavit Ilan
 
 # If not running interactively, don't do anything
@@ -13,7 +13,8 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # PROMPTS
-PS1='[\u@\h:\w]$ '
+# PS1='[\u@\h:\w]$ '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w \$\[\033[00m\] '
 PS2='>'
 
 
