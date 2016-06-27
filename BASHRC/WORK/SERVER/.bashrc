@@ -1,4 +1,4 @@
-# .BASHRC WORK-SERVER  ver: 1.1 (2016-06-23)
+# .BASHRC WORK-SERVER  ver: 1.2 (2016-06-27)
 # Shavit Ilan
 
 # If not running interactively, don't do anything
@@ -13,23 +13,14 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # PROMPTS
-PS1='\[\u@\h \w\]$ '
-PS2='\ '
+PS1='[\u@\h:\w]$ '
+PS2='>'
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-fi
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 export EDITOR=vim
 
-# ALIAS 
-# ~~~~~ 
+# ALIAS
+# ~~~~~
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'

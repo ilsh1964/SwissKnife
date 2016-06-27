@@ -1,4 +1,4 @@
-# .BASHRC WORK-PC ver: 1.1 (2016-06-23)
+# .BASHRC WORK-PC ver: 1.2 (2016-06-27)
 # Shavit Ilan
 
 # If not running interactively, don't do anything
@@ -8,37 +8,13 @@ case $- in
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+PS1='[\u@\h:\w]$ '
+PS2='>'
 
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\u@\h \w-> "
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-fi
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # EXPORTS
 export EDITOR=vim
@@ -48,9 +24,9 @@ export EDITOR=vim
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias ls='ls -hF --color=tty'                 # classify files in colour
-alias ll='ls -l'                              # long list
-alias h=history                     # show the history of commands issued
+alias ls='ls -hF --color=tty'
+alias ll='ls -l'
+alias h=history
 alias cd..="cd ../.."
 alias cd...="cd ../../.."
 alias path="echo $PATH"
@@ -66,8 +42,8 @@ alias top10='du -ks * | sort -nr | head -10'
 
 
 # APT
-alias install='apt install' 
-alias reinstall='apt install --reinstall' 
+alias install='apt install'
+alias reinstall='apt install --reinstall'
 alias search='apt search search'
 alias policy='apt policy '
 alias purge='apt purge'
@@ -78,3 +54,5 @@ alias shavit='ssh shavit@shavit'
 alias timsoret='ssh user@timsoret-vm'
 alias mitug='ssh user@mitug-vm'
 alias tikshuv='ssh user@syslog'
+alias inoteska='ssh user@inoteska'
+
