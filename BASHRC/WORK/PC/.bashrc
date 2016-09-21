@@ -1,4 +1,4 @@
-# .BASHRC WORK-PC ver: 1.3 (2016-06-27)
+# .BASHRC WORK-PC ver: 1.4 (2016-09-21)
 # Shavit Ilan
 
 # If not running interactively, don't do anything
@@ -43,12 +43,12 @@ alias top10='du -ks * | sort -nr | head -10'
 
 
 # APT
-alias install='apt install'
-alias reinstall='apt install --reinstall'
+alias install='sudo apt install'
+alias reinstall='sudo apt install --reinstall'
 alias search='apt search search'
-alias policy='apt policy '
-alias purge='apt purge'
-alias clean='apt clean'
+alias policy='apt-cache policy '
+alias purge='sudo apt purge'
+alias clean='sudo apt-get clean'
 
 # ssh connections
 alias shavit='ssh shavit@shavit'
@@ -56,4 +56,5 @@ alias timsoret='ssh user@timsoret-vm'
 alias mitug='ssh user@mitug-vm'
 alias tikshuv='ssh user@syslog'
 alias inoteska='ssh user@inoteska'
+alias siteview='ssh user@siteview'
 
