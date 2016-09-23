@@ -1,5 +1,4 @@
-# .BASHRC version 1.3 (2016-06-27)
-#         Shavit Ilan
+# .BASHRC HOME-PC  version 1.4 (2016-09-22)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -62,6 +61,7 @@ alias install='sudo apt install'
 alias reinstall='sudo apt install --reinstall'
 alias search='apt search'
 alias purge='sudo apt purge'
+alias policy='sudo apt policy'
 alias clean='sudo apt clean'
 
 # SHORTCUTS
