@@ -1,4 +1,4 @@
-# .BASHRC HOME-PC  version 1.6 (2016-10-06)
+# .BASHRC HOME-PC  version 1.7 (2016-10-09)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -70,5 +70,5 @@ alias doc='cd ~/Documents'
 alias dow='cd ~/Downloads'
 alias mus='cd ~/Music'
 alias vid='cd ~/Videos'
-alias download-youtube-mp3='youtube-dl -x --audio-format "mp3" --audio-quality "0" '
-# INSTALL\UPGRADE YOUTUBE-DL:  wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+alias youtubedl-download-mp3='youtube-dl -x --audio-format "mp3" --audio-quality "0" '
+alias youtubedl-upgrade='wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl'
