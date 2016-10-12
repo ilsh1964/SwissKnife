@@ -1,15 +1,12 @@
-" VIMRC Version: 1.2
-" Shavit Ilan 2016-06-27
+" VIMRC Version: 1.3
+" Shavit Ilan 2016-10-12
 "
+" ============================================================================
 " VUNDLE PLUGIN
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -35,56 +32,39 @@ Plugin 'ctrlp.vim'
 " Syntax checker Plugin
 Plugin 'scrooloose/syntastic'
 
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
+" Powerline
+Plugin 'powerline/powerline'
 
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
+" SimpylFold 
+Plugin 'tmhedberg/SimpylFold'
+set foldmethod=indent
 
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-"
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+call vundle#end()
+filetype plugin indent on
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-
-
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-
-" Brief help
+" VUNDLE HELP
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just
 " :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins. append `!` to auto-approve removal
-" 
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"==================================================
+" :h vundle for more details or wiki for FAQ
+" ============================================================================
 
 filetype plugin on " load filetype plugins
 
-" *****************  Martin tips: (vim as python ide)
-
-" Better copy & paste
-" When you want to paste large blocks of code into vim, press F2 before you
+" Better copy & paste (Press before you paste large blocks of code)
 set pastetoggle=<F2>
 set clipboard+=unnamed
 
 " Mouse and backspace
-set mouse=r  " on OSX press ALT and click
+set mouse=a  
 set bs=2     " make backspace behave like normal again
 
 " Rebind <Leader> key
 let mapleader = ","
 
-" Quicksave command
+" Quicksave: use ctrl+z (in any vim status)
 noremap <C-Z> :update<CR>
 vnoremap <C-Z> <C-C>:update<CR>
 inoremap <C-Z> <C-O>:update<CR>
@@ -97,6 +77,9 @@ noremap <Leader>E :qa!<CR>   " Quit all windows
 map <Leader>n <esc>:tabprevious<CR>
 map <Leader>m <esc>:tabnext<CR>
 
+" Open new tab
+map <C-t> <esc>:tabnew<CR>
+
 " easier moving of code blocks: select code in visual mode and press ``>`` several times.
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
@@ -107,12 +90,15 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+" Sort: Mark block and use <Leader>s
+vnoremap <Leader>s :sort<CR>
+
+" No backup files
 set nobackup
 set nowritebackup
 set noswapfile
 
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
+" Show whitespace (MUST be inserted BEFORE the colorscheme command)
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
@@ -128,8 +114,6 @@ set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
 " Enable syntax highlighting
-filetype off
-filetype plugin indent on
 syntax on
 
 " Useful settings
@@ -149,43 +133,16 @@ set incsearch
 set ignorecase
 set smartcase
 
-" Setup Pathogen to manage your plugins
-" mkdir -p ~/.vim/autoload ~/.vim/bundle
-" curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
-" Now you can install any plugin into a .vim/bundle/plugin-name/ folder
-call pathogen#infect()
-
 " Settings for vim-powerline
-" cd ~/.vim/bundle
-" git clone git://github.com/Lokaltog/vim-powerline.git
 set laststatus=2
 
 " Settings for ctrl+p
-" cd ~/.vim/bundle
-" git clone https://github.com/kien/ctrlp.vim.git
 let g:ctrlp_max_height = 30
 set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-" Python folding
-" mkdir -p ~/.vim/ftplugin
-" wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-" set foldmethod=manual 
-" set nofoldenable
-
-" Settings for jedi-vim
-" cd ~/.vim/bundle
-" git clone git://github.com/davidhalter/jedi-vim.git
-" let g:jedi#related_names_command = "<leader>z"
-" let g:jedi#popup_on_dot = 0
-" let g:jedi#popup_select_first = 0
-" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-" ***************** End Martin tips: (vim as python ide)
-
 " Show hide invisible character 
-" Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
