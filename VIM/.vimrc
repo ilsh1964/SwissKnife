@@ -1,4 +1,4 @@
-" VIMRC Version: 1.3
+" VIMRC Version: 1.4
 " Shavit Ilan 2016-10-12
 "
 " ============================================================================
@@ -38,6 +38,9 @@ Plugin 'powerline/powerline'
 " SimpylFold 
 Plugin 'tmhedberg/SimpylFold'
 set foldmethod=indent
+
+" jedi-vim
+Plugin 'davidhalter/jedi-vim'
 
 call vundle#end()
 filetype plugin indent on
