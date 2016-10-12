@@ -1,4 +1,4 @@
-" VIMRC Version: 1.4
+" VIMRC Version: 1.5
 " Shavit Ilan 2016-10-12
 "
 " ============================================================================
@@ -41,6 +41,9 @@ set foldmethod=indent
 
 " jedi-vim
 Plugin 'davidhalter/jedi-vim'
+
+" Javascript support
+Plugin 'jelera/vim-javascript-syntax'
 
 call vundle#end()
 filetype plugin indent on
