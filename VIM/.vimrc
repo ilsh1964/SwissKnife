@@ -1,5 +1,5 @@
-" VIMRC Version: 1.5
-" Shavit Ilan 2016-10-12
+" VIMRC Version: 1.6
+" Shavit Ilan 2016-10-15
 "
 " ============================================================================
 " VUNDLE PLUGIN
@@ -44,6 +44,9 @@ Plugin 'davidhalter/jedi-vim'
 
 " Javascript support
 Plugin 'jelera/vim-javascript-syntax'
+
+" delimitMate
+Plugin 'delimitMate.vim'
 
 call vundle#end()
 filetype plugin indent on
