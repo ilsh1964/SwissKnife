@@ -1,4 +1,4 @@
-# .BASHRC HOME-PC  version 1.7 (2016-10-09)
+# .BASHRC HOME-PC  version 1.8 (2016-12-16)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -44,7 +44,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
-alias lk="ps -aef |grep -i "
+alias lk="ps -aef |grep -v grep | grep -i "
 alias cd..="cd ../.."
 alias path="echo $PATH"
 
@@ -63,6 +63,7 @@ alias search='apt search'
 alias purge='sudo apt purge'
 alias policy='sudo apt policy'
 alias clean='sudo apt clean'
+alias check='sudo apt check'
 
 # SHORTCUTS
 alias pi='ssh pi@10.0.0.100'

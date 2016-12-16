@@ -1,4 +1,4 @@
-# .BASHRC WORK-PC ver: 1.4 (2016-09-21)
+# .BASHRC WORK-PC ver: 1.6 (2016-12-15)
 # Shavit Ilan
 
 # If not running interactively, don't do anything
@@ -31,13 +31,13 @@ alias h=history
 alias cd..="cd ../.."
 alias cd...="cd ../../.."
 alias path="echo $PATH"
-alias lk="ps -aef |grep -i "
+alias lk="ps -aef |grep -v grep | grep -i "
 alias firefox='x-www-browser'
 
 # UTIL
 alias vimrc='grep VIMRC ~/.vimrc'
 alias bashrc='grep .BASHRC ~/.bashrc |grep -v alias'
-alias kfirefox='killall iceweasel'
+alias kfirefox='killall firefox ; killall chrome'
 alias dobackup='/home/ilan/Bin/rsyncBackup.sh'
 alias top10='du -ks * | sort -nr | head -10'
 

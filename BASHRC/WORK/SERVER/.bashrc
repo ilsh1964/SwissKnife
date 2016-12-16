@@ -1,4 +1,4 @@
-# .BASHRC WORK-SERVER  ver: 1.3 (2016-06-27)
+# .BASHRC WORK-SERVER  ver: 1.4 (2016-12-15)
 # Shavit Ilan
 
 # If not running interactively, don't do anything
@@ -31,7 +31,7 @@ alias h=history                     # show the history of commands issued
 alias cd..="cd ../.."
 alias cd...="cd ../../.."
 alias path="echo $PATH"
-alias lk="ps -aef |grep -i "
+alias lk="ps -aef |grep -v grep | grep -i "
 
 # UTIL
 alias vimrc='grep VIMRC ~/.vimrc'
