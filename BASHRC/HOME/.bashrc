@@ -1,14 +1,16 @@
-# .BASHRC HOME-PC  version 1.8 (2016-12-16)
+# .BASHRC HOME-PC  version 1.9 (2017-02-25)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# HISTORY
 export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTCONTROL=ignoreboth
 shopt -s histappend
+HISTTIMEFORMAT="%d/%m/%y %T "
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
+# shopt options:    -s: Enable, -u: Disable, -q: Suppresses, -o: Restricts
 shopt -s checkwinsize
 
 # PS1='[\u@\h:\w]$ '
@@ -42,10 +44,8 @@ alias h=history                     # show the history of commands issued
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias ll='ls -l'                              # long list
-alias la='ls -A'                              # all but . and ..
+alias ll='ls -lAF'                              # long list
 alias lk="ps -aef |grep -v grep | grep -i "
-alias cd..="cd ../.."
 alias path="echo $PATH"
 
 # UTILS
@@ -71,5 +71,7 @@ alias doc='cd ~/Documents'
 alias dow='cd ~/Downloads'
 alias mus='cd ~/Music'
 alias vid='cd ~/Videos'
+alias pic='cd ~/Pictures'
+alias dro='cd ~/Dropbox'
 alias youtubedl-download-mp3='youtube-dl -x --audio-format "mp3" --audio-quality "0" '
 alias youtubedl-upgrade='wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl'
