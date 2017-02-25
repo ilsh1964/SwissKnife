@@ -1,4 +1,4 @@
-# .BASHRC HOME-PC  version 1.9 (2017-02-25)
+# .BASHRC HOME-PC  version 2.0 (2017-02-25)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -14,7 +14,7 @@ HISTTIMEFORMAT="%d/%m/%y %T "
 shopt -s checkwinsize
 
 # PS1='[\u@\h:\w]$ '
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\] \[\033[01;34m\]\w \$\[\033[00m\] '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\$\[\033[00m\] '
 PS2='> '
 
 # enable color support of ls and also add handy aliases
