@@ -1,4 +1,4 @@
-# .BASHRC PI  version 2.0 (2017-02-25)
+# .BASHRC PI  version 2.1 (2017-02-28)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -44,7 +44,7 @@ alias h=history                     # show the history of commands issued
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias ll='ls -lAF'                              # long list
+alias ll='ls -lhAF'                              # long list
 alias lk="ps -aef |grep -v grep | grep -i "
 alias path="echo $PATH"
 
