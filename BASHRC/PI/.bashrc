@@ -1,4 +1,4 @@
-# .BASHRC PI  version 2.1 (2017-02-28)
+# .BASHRC PI  version 2.2 (2017-03-10)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -47,6 +47,7 @@ alias mv='mv -i'
 alias ll='ls -lhAF'                              # long list
 alias lk="ps -aef |grep -v grep | grep -i "
 alias path="echo $PATH"
+alias ffmpeg="avconv"
 
 # UTILS
 alias top10='du -ks * | sort -nr | head -10'
@@ -65,8 +66,7 @@ alias clean='sudo apt-get clean'
 alias check='sudo apt-get check'
 
 # SHORTCUTS
-alias storage1='cd /media/storage1'
-alias storage2='cd /media/storage2'
-alias pilatis='cd /media/storage2/Public/Music/Sport/Pilatis-2017'
-alias mus='cd ~/Music'
+alias storage='cd /STORAGE1'
+alias pilatis='cd /STORAGE1/Public/Music/Sport/Pilatis-2017'
+alias mus='cd /STORAGE1/Public/Music'
 
