@@ -1,4 +1,4 @@
-# .BASHRC WORK-PC ver: 2.4 (2017-03-11)
+# .BASHRC WORK-PC ver: 2.5 (2017-03-11)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -44,7 +44,7 @@ alias h=history                     # show the history of commands issued
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias ll='ls -lAF'
+alias ll='ls -lhF'
 alias llh='ls -lhAF'
 alias lk="ps -aef |grep -v grep | grep -i "
 alias path="echo $PATH"
