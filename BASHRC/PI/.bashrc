@@ -1,4 +1,4 @@
-# .BASHRC PI  version 2.2 (2017-03-10)
+# .BASHRC PI  version 2.3 (2017-03-11)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -48,6 +48,7 @@ alias ll='ls -lhAF'                              # long list
 alias lk="ps -aef |grep -v grep | grep -i "
 alias path="echo $PATH"
 alias ffmpeg="avconv"
+alias cfm="mplayer http://media-ice.musicradio.com/ClassicFMMP3"
 
 # UTILS
 alias top10='du -ks * | sort -nr | head -10'
