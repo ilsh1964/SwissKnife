@@ -1,4 +1,4 @@
-# .BASHRC PI  version 2.6 (2017-03-31)
+# .BASHRC PI  version 2.6 (2017-05-19)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -61,6 +61,8 @@ alias rclone_music="/home/pi/Bin/rclone/rclone sync /STORAGE1/Public/Music/ ilsh
 alias rclone_rclone="/home/pi/Bin/rclone/rclone sync /STORAGE1/Rclone/ ilsh_music:Rclone"
 
 #APT-GET
+alias update='sudo apt-get update'
+alias install='sudo apt-get install'
 alias install='sudo apt-get install'
 alias reinstall='sudo apt-get install --reinstall'
 alias search='apt-cache search'

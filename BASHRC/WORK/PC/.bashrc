@@ -1,4 +1,4 @@
-# .BASHRC WORK-PC ver: 2.5 (2017-03-11)
+# .BASHRC WORK-PC ver: 2.6 (2017-05-01)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -76,4 +76,5 @@ alias tikshuv='ssh user@syslog'
 alias inoteska='ssh user@inoteska'
 alias siteview='ssh user@siteview'
 alias proactive='ssh user@proactive'
+alias edc-backup='ssh root@edc-backup'
 

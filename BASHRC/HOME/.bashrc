@@ -1,4 +1,4 @@
-# .BASHRC HOME-PC  version 2.5 (2017-03-11)
+# .BASHRC HOME-PC  version 2.6 (2017-05-19)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -58,6 +58,7 @@ alias en='export LANG=en_US.UTF8'
 alias he='export LANG=he_IL.UTF8'
 
 #APT
+alias update='sudo apt update'
 alias install='sudo apt install'
 alias reinstall='sudo apt install --reinstall'
 alias search='apt search'
