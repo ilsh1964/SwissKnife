@@ -1,4 +1,4 @@
-# .BASHRC WORK-PC ver: 2.6 (2017-05-01)
+# .BASHRC WORK-PC ver: 2.7 (2017-07-31)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -56,7 +56,7 @@ alias vimrc='grep VIMRC ~/.vimrc'
 alias bashrc='grep .BASHRC ~/.bashrc |grep -v alias'
 alias en='export LANG=en_US.UTF8'
 alias he='export LANG=he_IL.UTF8'
-alias kfirefox='killall firefox ; killall chrome'
+alias kfirefox='killall firefox-esr; killall chrome'
 alias dobackup='/home/ilan/Bin/rsyncBackup.sh'
 
 
@@ -70,8 +70,8 @@ alias clean='sudo apt-get clean'
 
 # ssh connections
 alias shavit='ssh shavit@shavit'
-alias timsoret='ssh user@timsoret-vm'
-alias mitug='ssh user@mitug-vm'
+alias timsoret='ssh user@timsoret'
+alias mitug='ssh user@mitug'
 alias tikshuv='ssh user@syslog'
 alias inoteska='ssh user@inoteska'
 alias siteview='ssh user@siteview'
