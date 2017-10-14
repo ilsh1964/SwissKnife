@@ -1,5 +1,5 @@
-" VIMRC Version: 1.6
-" Shavit Ilan 2016-10-15
+" VIMRC Version: 1.7
+" Shavit Ilan 2017-10-14
 "
 " ============================================================================
 " VUNDLE PLUGIN
