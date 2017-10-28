@@ -1,6 +1,4 @@
-" VIMRC Version: 1.7
-" Shavit Ilan 2017-10-14
-"
+" VIMRC Version: 1.8 --- 2017-10-18 "
 " ============================================================================
 " VUNDLE PLUGIN
 set nocompatible              " be iMproved, required
@@ -35,7 +33,7 @@ Plugin 'scrooloose/syntastic'
 " Powerline
 Plugin 'powerline/powerline'
 
-" SimpylFold 
+" SimpylFold
 Plugin 'tmhedberg/SimpylFold'
 set foldmethod=indent
 
@@ -67,7 +65,7 @@ set pastetoggle=<F2>
 set clipboard+=unnamed
 
 " Mouse and backspace
-set mouse=a  
+set mouse=a
 set bs=2     " make backspace behave like normal again
 
 " Rebind <Leader> key
@@ -151,23 +149,23 @@ set wildignore+=*.pyc
 set wildignore+=*_build/*
 set wildignore+=*/coverage/*
 
-" Show hide invisible character 
+" Show hide invisible character
 nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
 
-set ruler " Always show current positions along the bottom 
+set ruler " Always show current positions along the bottom
 set wildmenu " turn on wild menu
 set noerrorbells " don't make noise
 set showmatch " show matching brackets
 set ai " autoindent
-set si " smartindent 
+set si " smartindent
 set guioptions-=T "Remove toolbar
 set guioptions-=m "Remove menu
 au BufWinLeave * mkview
 
-"python definition 
-set autoindent "when you press RETURN new line is created with the right indent 
+"python definition
+set autoindent "when you press RETURN new line is created with the right indent
 set cpoptions+=$
 
 " Run F5 to run python scripts
