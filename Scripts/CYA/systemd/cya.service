@@ -1,0 +1,8 @@
+[Unit]
+Description=Run cya
+
+[Service]
+User=root
+Group=root
+Type=oneshot
+ExecStart=/home/USER/bin/cya save
