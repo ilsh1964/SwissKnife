@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# XBT -- External Backup Tool (v. 1.6) -- by Joe Collins (November 19th, 2017)
 # The USB drive MUST be labeled as "XBT_Drive" for the script to run.
 
 if [ ! -d /media/"$USER"/XBT_Drive ]; then
@@ -9,7 +8,7 @@ fi
 
 clear
 echo "
-XBT -- External Backup Tool (Version 1.6)
+XBT -- External Backup Tool (Version 1.7 - Ilan Shavit)
 "
 # Log file is created in /tmp:
 
@@ -21,11 +20,6 @@ echo "Errors:" >> /tmp/backup.log
 # Begin backup operations using rsync:
 # (User will be prompted for sudo password if XBT was not started with sudo.)
 
-# Make sure sudo is on:
-
-echo "Checking sudo permissions..."
-sudo ls >/dev/null
-
 # Creating machine specific directories:
 
 mkdir -p /media/"$USER"/XBT_Drive/XBT_Backups/"$HOSTNAME"
@@ -34,7 +28,7 @@ mkdir -p /media/"$USER"/XBT_Drive/XBT_Backups/"$HOSTNAME"
 
 echo "
 Backing up /home..."
-sudo rsync -aq --delete --exclude '/home/cya' --exclude '/home/"$USER"/.cache' /media/"$USER"/XBT_Drive/XBT_Backups/"$HOSTNAME"/home/  2>> /tmp/backup.log
+rsync -aq --delete --exclude '/home/"$USER"/.cache'  /home/"$USER"/ /media/"$USER"/XBT_Drive/XBT_Backups/"$HOSTNAME"/home/  2>> /tmp/backup.log
 echo "--------------------
 -  All backed up!  -
 --------------------" | tee -a /tmp/backup.log
