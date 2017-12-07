@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Put the last digits of the local IP as argument to sync all data folders.
+
+HOSTIP=$1
+clear
+echo "Running rsnyc on main data directories..."
+echo "Syncing Audio..."
+rsync -avz --delete /home/"$USER"/Audio/ 192.168.0."$HOSTIP":Audio/
+echo "Syncing Chart Hits Archive..."
+rsync -avz --delete /home/"$USER"/Chart\ Hits\ Archive/ 192.168.0."$HOSTIP":Chart\\\ Hits\\\ Archive
+echo "Syncing Documents..."
+rsync -avz --delete /home/"$USER"/Documents/ 192.168.0."$HOSTIP":Documents/
+echo "Syncing Music..."
+rsync -avz --delete /home/"$USER"/Music/ 192.168.0."$HOSTIP":Music/
+echo "Syncing Pictures..."
+rsync -avz --delete /home/"$USER"/Pictures/ 192.168.0."$HOSTIP":Pictures/
+echo "Syncing Videos..."
+rsync -avz --delete /home/"$USER"/Videos/ 192.168.0."$HOSTIP":Videos/
+
+echo "---------------------------"
+echo "- All directories synced! -"
+echo "---------------------------"
+
