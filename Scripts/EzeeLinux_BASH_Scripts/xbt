@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # XBT -- External Backup Tool (v. 1.7) -- by Joe Collins (December 6th, 2017)
-#
+# Shavit Ilan Edit: 017-12-08
 # A Script to create a snapshot backup of /etc and /home on a dedicated
 # external USB drive.
 #
@@ -30,7 +30,7 @@ if [ "$1" == "--help" ]; then
  of the machine it's backing up from inside XBT-Backups. This allows users to
  share one XBT_Drive with multiple machines.
 
- The directory structure and all files are stored openly to allow users easy
+ zRe directory structure and all files are stored openly to allow users easy
  access if they only need to retrieve a few files or directories using a file
  manager. Data from /homecan be restored with the built in "xbt restore"
  command if the user wants to roll back to the exact state of /home when the
@@ -118,22 +118,14 @@ echo "Errors:" >> /tmp/backup.log
 
 # Begin backup operations using rsync:
 # (User will be prompted for sudo password if XBT was not started with sudo.)
-
-
-
 # Creating machine specific directories:
 
 mkdir -p /media/"$USER"/XBT_Drive/XBT_Backups/"$HOSTNAME"
 
 # Starting synchronization:
 
-echo "
-Backing up /etc..."
-sudo rsync -aH --delete --info=progress2 /etc/ \
-/media/"$USER"/XBT_Drive/XBT_Backups/"$HOSTNAME"/Etc_Backup/ 2>> /tmp/backup.log
-echo "
-Backing up /home..."
-sudo rsync -aH --delete --info=progress2 /home/ \
+echo "Backing up /home..."
+sudo rsync -aH --delete --exclude=/home/"$USER"/.cache --info=progress2 /home/ \
 /media/"$USER"/XBT_Drive/XBT_Backups/"$HOSTNAME"/Home_Backup/ 2>> /tmp/backup.log
 
 echo "--------------------
@@ -149,7 +141,6 @@ cat /tmp/backup.log >> /media/"$USER"/XBT_Drive/XBT_Backups/xbt-backup.log
 
 echo "Wait! Syncing drives..."
 sync
-echo "...Done.
-It's now safe to remove XBT_Drive. Thanks for using XBT!
-"
+echo "...Done
+It's now safe to remove XBT_Drive. Thanks for using XBT!  "
 exit
