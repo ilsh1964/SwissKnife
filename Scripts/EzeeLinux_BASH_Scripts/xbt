@@ -48,7 +48,7 @@ if [ "$1" == "--help" ]; then
  formatted to a Linux native file system such as Ext4 to ensure that file
  permissions will be stored unchanged. The USB drive needs to have enough
  free capacity to store all data in /home on all of the machines wyou want to
- use the drive for. . The drive MUST be labeled as "XBT_Drive" for the script to
+ use the drive for. . The drive MUST be labeled as 'XBT_Drive' for the script to
  run. If XBT_Drive is not detected, the script exits with an error.
 "
    exit
