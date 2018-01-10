@@ -1,4 +1,4 @@
-" VIMRC Version: 1.8 --- 2017-10-18 "
+" VIMRC Version: 1.9 --- 2018-01-10 "
 " ============================================================================
 " VUNDLE PLUGIN
 set nocompatible              " be iMproved, required
