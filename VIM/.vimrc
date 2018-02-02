@@ -1,4 +1,4 @@
-" VIMRC Version: 1.9 --- 2018-01-10 "
+" VIMRC Version: 2.0 --- 2018-02-02 "
 " ============================================================================
 " VUNDLE PLUGIN
 set nocompatible              " be iMproved, required
@@ -75,6 +75,9 @@ let mapleader = ","
 noremap <C-Z> :update<CR>
 vnoremap <C-Z> <C-C>:update<CR>
 inoremap <C-Z> <C-O>:update<CR>
+
+" shift+H to get python help on current word (via pydoc)
+nnoremap <buffer> H :<C-u>execute "!pydoc3 " . expand("<cword>")<CR>
 
 " Quick quit command
 noremap <Leader>e :quit<CR>  " Quit current window
