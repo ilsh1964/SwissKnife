@@ -12,7 +12,7 @@ There are many other features such as the system will keep three separate copies
 
 CYA even supports mixing all three methods at the same time: rotating, manual, and archiving.  However best of all these processes may be automated with crontab, anacron, systemd, etc.  It is even super easy to call CYA from other scripts and processes!
 
-**As stated above this utility does NOT touch data outside of configured directories.  Therefore your personal data is safe!**
+**Version 2.0 and above is now able to backup user data via the mydata command!**
 
 More information: [https://www.cyberws.com/bash/cya/](https://www.cyberws.com/bash/cya/)
 
@@ -94,6 +94,36 @@ shell> **cya keep name BACKUP_NAME archive**
 
 This command *IS script safe* as a unix timestamp will be added to make unique filenames.  Also note this option will remove the backup profile directory and backup will *NOT* appear in the back up list.
 
+### Backing User Data
+
+Version 2.0 introduced the ability to backup user data along with system files.  This is done using the mydata command and uses profiles set in the **cya.conf** file.
+
+You set MYDATA underscore profile name (case sensitive and unique) then between quotes the source directory (what to backup) space then destination directory (where to backup).  **Both source and destination directories should end with a trailing slash.**
+
+Example:
+
+Let's say we want to backup /home/john/ to /mnt/wd-passport/john/ with a profile name of johnfiles
+
+MYDATA_johnfiles="/home/john/ /mnt/wd-password/john/"
+
+Now to actually backup /home/john/ you need to enter johnfiles (the profile name, which is case sensitive) with the cya mydata command:
+
+shell> cya mydata johnfiles
+
+This will cause CYA to backup the /home/john/ directory.  If you run the command again CYA will update the destination directory.  So you simply issue the same command when a backup update is desired.
+
+You may also use the same source directory for multiple backup destinations.  This is useful if you want to backup a directory to multiple drives.  Also you may backup to any directory (drive) that is mounted so internal drives, external USB (hdd, ssd, flash), NAS, cloud, etc are all acceptable.  If desired you may even crontab, anacron, or systemd backup(s) to always connected destinations.
+
+To specify additional backups simply add more entries with one per line.  **Do remember to use unique profile names!**
+
+Examples:
+
+MYDATA_johnwd="/home/john/ /mnt/wd-password/john/"
+
+MYDATA_johnnas="/home/john/ /nas/john/"
+
+MYDATA_maryfiles="/home/mary/ /mnt/wd-password/mary/"
+
 ###	Recovery
 
 If you find your system in a situation where things aren't right then it is time to restore it.  Now should you have a known single file issue it would be faster to restore that single file, however you will need to watch out for ownership and permissions.  Thus the cp command may or may not be enough depending on the situation.
@@ -120,6 +150,48 @@ shell> sudo mount /dev/sda1 /mnt/cya
 shell> sudo mount /dev/sda3 /mnt/cya/home
 4) Now execute the restore command to start the process  
 shell> **sudo /mnt/cya/home/cya/cya restore**
+
+###	BASH Autocomplete
+
+This project includes a BASH autocomplete script.  This means once installed hitting tab after typing in the cya command will show available options and even completes them.
+
+For example type in the following omitting enter then hit tab a few times:
+
+shell> **cya**
+
+Now type in the following omitting enter then hit tab:
+
+shell> **cya l**
+
+This only works when you have installed the bash-completion package (which some distros include) AND the **cya-completion** file.
+
+Steps:
+
+1) First make sure the **bash-completion** package is installed on your system.  You may run a test by typing in "ls" then hitting tab a few times.  If you see a list of available commands you have this package.  If not you need to install it.
+
+Installing **bash-completion**:
+
+A) Debian systems (Ubuntu, Mint, etc):
+
+shell> **sudo apt-get install bash-completion**
+
+B) Red Hat systems (RHEL, CentOS, Fedora):
+
+shell> **sudo yum install bash-completion**
+
+or
+
+shell> **sudo dnf install bash-completion**
+
+2) Now you need to copy the **cya_completion** file to **/etc/bash_completion.d/**
+
+You'll need to use sudo.  For example let's say you have the file in your Downloads directory:
+
+shell> **sudo cp ~/Downloads/cya-master/cya_completion /etc/bash_completion.d/**
+
+3) Finally BASH needs to reload the files in order to pick up the modifications.  There are multiple ways to accomplish this which include closing the terminal and reopening it or logging out and back in.  However you can skip those and simply issue the following command:
+
+shell> **source ~/.bashrc**
 
 ## Customizing
 
@@ -218,13 +290,13 @@ Look for the following line to modify:
 
 **ExecStart=/home/USER/bin/cya save**
 
-2) cya.timer = This sets up the time systemd run CYA.  The file included will run a backup once a week.  This may or may not be enough for your situation.  If a week works for you then no need to change this file.
+2) cya.timer = This sets up the time systemd runs CYA.  The file included will run a backup once a week.  This may or may not be enough for your situation.  If a week works for you then no need to change this file.
 
 If you want something other than week modify:
 
 **OnCalendar=weekly**
 
-3) To setup upload both cya.service and cya.timer to **/etc/systemd/system/** and chmod 644 both of them
+3) To setup copy/move both cya.service and cya.timer to **/etc/systemd/system/** and chmod 644 both of them
 
 4) Now enable the cya.timer unit by issuing the following two commands at the prompt:
 
