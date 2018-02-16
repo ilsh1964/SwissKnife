@@ -12,72 +12,88 @@
 import logging
 import glob
 from ConfigParser import SafeConfigParser
-from datetime import datetime, date
+from datetime import date
 import os
 import sys
 
 
-def get_timestamp():
-    """
-        return timestamp in this format '2012-12-07 17:45:57'
-    """
-    timestamp = str(datetime.now())
-    return timestamp[0:19]
-
-
-def del_file_timestamp(files_template, keep_files, simulation_mode):
+def del_file_timestamp(base_dir, files_template, keep_files, \
+                       simulation_mode, recursive_mode):
     """
         delete files on FILE_FIMESTAMP method
     """
-    files_list = glob.glob(files_template)
-    files_list = sorted(files_list)
-    num_files = len(files_list)
+    all_dir = [base_dir]
+    if recursive_mode == "Y":
+        all_dir.append([name for name in os.listdir(base_dir) \
+            if os.path.isdir(os.path.join(base_dir, name))])
+    else:
+        all_dir.append([])
+    all_dir[1].append('.')
 
-    if (num_files - keep_files) <= 0:
-        log_message = "%s \t No files to delete..." % get_timestamp()
-        if simulation_mode == 'Y':
-            print log_message
-        else:
-            logging.info(log_message)
-
-
-    for temp_i in range(num_files - int(keep_files)):
-        log_message = "%s \t %s \t is going to be deleted..." % \
-                        (get_timestamp(), files_list[temp_i])
-        if simulation_mode == 'Y':
-            print log_message
-        else:
-            logging.info(log_message)
-            os.remove(files_list[temp_i])
+    for each_dir in all_dir[1]:
+        os.chdir(base_dir)
+        os.chdir(each_dir)
+        files_list = glob.glob(files_template)
+        files_list = sorted(files_list)
+        num_files = len(files_list)
 
 
-def del_file_creation(files_template, keep_days, simulation_mode):
+        if (num_files - keep_files) <= 0:
+            log_message = "%s/%s: No files to delete..." % (base_dir, each_dir)
+            if simulation_mode == 'Y':
+                print log_message
+            else:
+                logging.info(log_message)
+
+
+        for temp_i in range(num_files - int(keep_files)):
+            log_message = "%s/%s/%s" % (base_dir, each_dir, files_list[temp_i])
+            if simulation_mode == 'Y':
+                print log_message + " - Going to delete..."
+            else:
+                logging.info(log_message + " - Deleted!")
+                os.remove(files_list[temp_i])
+
+
+def del_file_creation(base_dir, files_template, keep_days, simulation_mode, \
+                      recursive_mode):
     """
         delete files on FILE_CREATION method
     """
-    current_date = date.today()
-    files = glob.glob(files_template)
 
-    need_delete = False
-    for each_file in files:
-        the_file = os.path.getctime(each_file)
-        the_file_ts = date.fromtimestamp(the_file)
-        days_diff = (current_date - the_file_ts).days
-        if days_diff > keep_days:
-            need_delete = True
-            log_message = "%s \t %s \t is going to be deleted..." % \
-                            (get_timestamp(), each_file)
-            if simulation_mode == 'N':
-                logging.info(log_message)
-                os.remove(each_file)
-            else:
+    all_dir = [base_dir]
+    if recursive_mode == "Y":
+        all_dir.append([name for name in os.listdir(base_dir) \
+            if os.path.isdir(os.path.join(base_dir, name))])
+    else:
+        all_dir.append([])
+    all_dir[1].append('.')
+
+    for each_dir in all_dir[1]:
+        os.chdir(base_dir)
+        os.chdir(each_dir)
+        current_date = date.today()
+        files = glob.glob(files_template)
+        need_delete = False
+        for each_file in files:
+            the_file = os.path.getmtime(each_file)
+            the_file_ts = date.fromtimestamp(the_file)
+            days_diff = (current_date - the_file_ts).days
+            if days_diff > keep_days:
+                need_delete = True
+                log_message = "%s/%s/%s" % (base_dir, each_dir, each_file)
+                if simulation_mode == 'Y':
+                    print log_message + " - Going to delete..."
+                else:
+                    if need_delete:
+                        os.remove(each_file)
+                        logging.info(log_message + " - Deleted!")
+        if not need_delete:
+            log_message = "%s/%s -  No files to delete..." % (base_dir, each_dir)
+            if simulation_mode == 'Y':
                 print log_message
-    if not need_delete:
-        log_message = "%s \t No files to delete..." % get_timestamp()
-        if simulation_mode == 'Y':
-            print log_message
-        else:
-            logging.info(log_message)
+            else:
+                logging.info(log_message)
 
 
 def main():
@@ -92,19 +108,21 @@ def main():
         ini_file = sys.argv[0].replace("del_files.exe", "del_files.ini")
         log_file = sys.argv[0].replace("del_files.exe", "del_files.log")
 
-    logging.basicConfig(filename=log_file, level=logging.INFO)
+    logging.basicConfig(filename=log_file, level=logging.INFO,\
+        format='%(asctime)s - %(levelname)s - %(message)s')
     parser = SafeConfigParser()
     parser.read(ini_file)
     simulation_mode = parser.get('CONFIG', 'SIMULATION_MODE')
-    deletion_method = parser.get('CONFIG', 'DELETION_METHOD')
-    keep_files = int(parser.get('CONFIG', 'KEEP_FILES'))
-    keep_days = int(parser.get('CONFIG', 'KEEP_DAYS'))
+    base_dir = parser.get('CONFIG', 'BASE_DIR')
+    recursive_mode = parser.get('CONFIG', 'RECURSIVE_MODE')
+    method = parser.get('CONFIG', 'METHOD')
+    keep = int(parser.get('CONFIG', 'KEEP'))
     files_template = parser.get('CONFIG', 'FILES_TEMPLATE')
 
-    if deletion_method == "FILE_TIMESTAMP":
-        del_file_timestamp(files_template, keep_files, simulation_mode)
-    elif deletion_method == "FILE_CREATION":
-        del_file_creation(files_template, keep_days, simulation_mode)
+    if method == "T":
+        del_file_timestamp(base_dir, files_template, keep, simulation_mode, recursive_mode)
+    elif method == "C":
+        del_file_creation(base_dir, files_template, keep, simulation_mode, recursive_mode)
 
 
 if __name__ == "__main__":
