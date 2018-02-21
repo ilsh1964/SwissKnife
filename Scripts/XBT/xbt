@@ -1,13 +1,19 @@
 #!/bin/bash
 
-# XBT -- External Backup Tool (v. 2.1) -- by Joe Collins. (www.ezeelinux.com)
-# ...Special Thanks to Jeremy O'Connell and Jody James. (December 13th, 2017)
+# XBT -- External Backup Tool (v. 2.2) -- by Joe Collins. (www.ezeelinux.com)
+# ...Special Thanks to Jeremy O'Connell and Jody James. (February 18th, 2017)
 # (GNU/General Public License version 2.0)
 #
 # A Script to create a snapshot backup of /etc and /home on a dedicated
 # external USB drive.
 #
 # ...And away we go!
+
+# Check for rsync, less and parted, install if needed:
+
+dpkg -l | grep -qw less || sudo apt-get install -yyq less
+dpkg -l | grep -qw parted || sudo apt-get install -yyq parted
+dpkg -l | grep -qw rsync || sudo apt-get install -yyq rsync
 
 # Declare static variables:
 
@@ -41,6 +47,13 @@ sudo ls > /dev/null
 
 sudo chown $user /media/${user}/XBT_Drive/
 
+# Generate XBT log file file if not there already:
+
+if [ ! -f /media/$user/XBT_Drive/XBT_Backups/xbt-backup.log ]; then
+    echo "XBT -- External Backup Tool - Log File" \
+    > /media/$user/XBT_Drive/XBT_Backups/xbt-backup.log
+fi
+
 # Log file is created in /tmp:
 
 date_and_time="$(date)"
@@ -61,11 +74,32 @@ echo $'\n'$"XBT Backup"
 echo $'\n'$"Backing up /etc..."
 sudo rsync -aH --delete --info=progress2 /etc/ \
 /media/$user/XBT_Drive/XBT_Backups/$host/Etc_Backup/ 2>> /tmp/backup.log
+
+# Checking status of rsync exit code:
+
+if [ "$?" != "0" ]; then
+    echo "Starting second pass for /etc..." | tee -a /tmp/backup.log
+    sudo rsync -aH --delete --info=progress2 /etc/ \
+    /media/$user/XBT_Drive/XBT_Backups/$host/Etc_Backup/ 2>> /tmp/backup.log
+    if [ "$?" != "0" ]; then
+        echo "...Second pass had some errors errors. Moving on to /home anyway." \
+        | tee -a /tmp/backup.log
+        # Set error flag for log file completion:
+        local etc_error_code=yes
+    fi
+fi
+
 echo $'\n'$"Backing up /home..."
 sudo rsync -aH --delete --info=progress2 /home/ \
 /media/$user/XBT_Drive/XBT_Backups/$host/Home_Backup/ 2>> /tmp/backup.log
 
 # Checking status of rsync exit code:
+
+if [ "$?" != "0" ]; then
+    echo "Starting second pass for /home..." | tee -a /tmp/backup.log
+    sudo rsync -aH --delete --info=progress2 /home/ \
+    /media/$user/XBT_Drive/XBT_Backups/$host/Home_Backup/ 2>> /tmp/backup.log
+fi
 
 if [ "$?" == "0" ]; then
 
@@ -76,8 +110,19 @@ if [ "$?" == "0" ]; then
     # Get the time:
 
     time="$(date +"%T")"
-    echo "No errors! :)" >> /tmp/backup.log
+
     clear
+
+    # Report errors with /etc backup if there were any:
+
+    if  [ "$etc_error_code" == "yes" ]; then
+        echo "XBT Backup: /home backup successful! Some errors with /etc" \
+        >> /tmp/backup.log
+        echo "Please review XBT Log to see them."
+    else
+        echo "No errors! :)" >> /tmp/backup.log
+    fi
+
     echo "XBT Backup: Successfully completed at $time!" | tee -a /tmp/backup.log
 
     # Log file is created or appended on XBT_Drive from /tmp:
@@ -96,8 +141,17 @@ else
     # Get the time:
 
     time="$(date +"%T")"
+
     clear
-    echo "XBT Backup: Exited with errors at $time!" \
+
+    # Report erros with /etc backup if there were any:
+
+    if  [ "$etc_error_code" += "yes" ]; then
+        echo "XBT Backup: There were some errors with /etc backup!"
+        echo "Please review XBT Log to see them."
+    fi
+
+    echo "XBT Backup: Backup of /home had errors after two passes at $time!" \
     | tee -a /tmp/backup.log
     echo "Please review XBT Log to see them."
     cat /tmp/backup.log >> /media/$user/XBT_Drive/XBT_Backups/xbt-backup.log
@@ -399,7 +453,7 @@ greeting() {
 
 	cat << _EOF_
 
-XBT -- External Backup Tool (Version 2.1)
+XBT -- External Backup Tool (Version 2.2)
 
 Main Menu: What would you like to do?
 
@@ -466,7 +520,7 @@ help() {
     less << _EOF_
 
  XBT -- External Backup Tool -- Help
- (v. 2.1)
+ (v. 2.2)
 
  Press "q" to exit this Help page and return to Main Menu.
 
