@@ -1,4 +1,4 @@
-# .BASHRC HOME-PC  version 2.7 (2017-11-01)
+# .BASHRC HOME-PC  version 2.8 (2018-02-23)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -69,7 +69,8 @@ alias clean='sudo apt clean'
 alias check='sudo apt check'
 
 # SHORTCUTS
-alias pi='ssh pi@10.0.0.100'
+alias nas='ssh pi@10.0.0.100'
+alias web='ssh pi@10.0.0.99'
 alias doc='cd ~/Documents'
 alias dow='cd ~/Downloads'
 alias mus='cd ~/Music'

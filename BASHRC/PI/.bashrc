@@ -1,4 +1,4 @@
-# .BASHRC PI  version 2.6 (2017-05-19)
+# .BASHRC PI  version 2.8 (2018-02-23)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -72,7 +72,8 @@ alias clean='sudo apt-get clean'
 alias check='sudo apt-get check'
 
 # SHORTCUTS
-alias storage='cd /STORAGE1'
+alias storage1='cd /STORAGE1'
+alias storage2='cd /STORAGE2'
 alias pilatis='cd /STORAGE1/Public/Music/Sport/Pilatis-2017'
 alias mus='cd /STORAGE1/Public/Music'
 
