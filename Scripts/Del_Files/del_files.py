@@ -3,7 +3,7 @@
 """
    delFiles - Delete log files(support several deletion method)
 
-   Version: 1.1
+   Version: 2.1 (2017-03-2)
    Dev: Shavit Ilan (ilan.shavit@gmail.com)
 """
 
@@ -31,28 +31,31 @@ def del_file_timestamp(base_dir, files_template, keep_files, \
     all_dir[1].append('.')
 
     for each_dir in all_dir[1]:
-        os.chdir(base_dir)
-        os.chdir(each_dir)
-        files_list = glob.glob(files_template)
-        files_list = sorted(files_list)
-        num_files = len(files_list)
+        try:
+            os.chdir(base_dir)
+            os.chdir(each_dir)
+            files_list = glob.glob(files_template)
+            files_list = sorted(files_list)
+            num_files = len(files_list)
 
 
-        if (num_files - keep_files) <= 0:
-            log_message = "%s/%s: No files to delete..." % (base_dir, each_dir)
-            if simulation_mode == 'Y':
-                print log_message
-            else:
-                logging.info(log_message)
+            if (num_files - keep_files) <= 0:
+                log_message = "%s/%s: No files to delete..." % (base_dir, each_dir)
+                if simulation_mode == 'Y':
+                    print log_message
+                else:
+                    logging.info(log_message)
 
 
-        for temp_i in range(num_files - int(keep_files)):
-            log_message = "%s/%s/%s" % (base_dir, each_dir, files_list[temp_i])
-            if simulation_mode == 'Y':
-                print log_message + " - Going to delete..."
-            else:
-                logging.info(log_message + " - Deleted!")
-                os.remove(files_list[temp_i])
+            for temp_i in range(num_files - int(keep_files)):
+                log_message = "%s/%s/%s" % (base_dir, each_dir, files_list[temp_i])
+                if simulation_mode == 'Y':
+                    print log_message + " - Going to delete..."
+                else:
+                    logging.info(log_message + " - Deleted!")
+                    os.remove(files_list[temp_i])
+        except:
+            pass
 
 
 def del_file_creation(base_dir, files_template, keep_days, simulation_mode, \
@@ -60,7 +63,6 @@ def del_file_creation(base_dir, files_template, keep_days, simulation_mode, \
     """
         delete files on FILE_CREATION method
     """
-
     all_dir = [base_dir]
     if recursive_mode == "Y":
         all_dir.append([name for name in os.listdir(base_dir) \
@@ -70,30 +72,33 @@ def del_file_creation(base_dir, files_template, keep_days, simulation_mode, \
     all_dir[1].append('.')
 
     for each_dir in all_dir[1]:
-        os.chdir(base_dir)
-        os.chdir(each_dir)
-        current_date = date.today()
-        files = glob.glob(files_template)
-        need_delete = False
-        for each_file in files:
-            the_file = os.path.getmtime(each_file)
-            the_file_ts = date.fromtimestamp(the_file)
-            days_diff = (current_date - the_file_ts).days
-            if days_diff > keep_days:
-                need_delete = True
-                log_message = "%s/%s/%s" % (base_dir, each_dir, each_file)
+        try:
+            os.chdir(base_dir)
+            os.chdir(each_dir)
+            current_date = date.today()
+            files = glob.glob(files_template)
+            need_delete = False
+            for each_file in files:
+                the_file = os.path.getmtime(each_file)
+                the_file_ts = date.fromtimestamp(the_file)
+                days_diff = (current_date - the_file_ts).days
+                if days_diff > keep_days:
+                    need_delete = True
+                    log_message = "%s/%s/%s" % (base_dir, each_dir, each_file)
+                    if simulation_mode == 'Y':
+                        print log_message + " - Going to delete..."
+                    else:
+                        if need_delete:
+                            os.remove(each_file)
+                            logging.info(log_message + " - Deleted!")
+            if not need_delete:
+                log_message = "%s/%s -  No files to delete..." % (base_dir, each_dir)
                 if simulation_mode == 'Y':
-                    print log_message + " - Going to delete..."
+                    print log_message
                 else:
-                    if need_delete:
-                        os.remove(each_file)
-                        logging.info(log_message + " - Deleted!")
-        if not need_delete:
-            log_message = "%s/%s -  No files to delete..." % (base_dir, each_dir)
-            if simulation_mode == 'Y':
-                print log_message
-            else:
-                logging.info(log_message)
+                    logging.info(log_message)
+        except:
+            pass
 
 
 def main():
