@@ -1,0 +1,130 @@
+EZEELINUX TWEAKS AND TRICKS
+
+This a collection of commands you can use on your system to boost performance,
+clean up your file system or just have fun with. Be careful, though. A few are
+powerful enough to break something if you aren't sure what you're doing. Be
+sure to read the documentation using the manual command. (man name-of-commas)
+
+GET INFO ABOUT YOUR SYSTEM:
+
+Get An Overview Of Everything In Real Time:
+
+top
+
+See How Much Memory You're Using:
+
+free -h
+
+See All Storage Devices On Your Machine:
+
+lsblk
+
+See How Much Disk Space You're Using
+
+df -h
+
+Find Out What Day And Time It Is:
+
+date
+
+Get A Calendar:
+
+cal
+
+Find Out How Long Your Machine Has Been Running:
+
+uptime
+
+See Who Is Logged In:
+
+users
+
+Find Out What Account You're Logged Into:
+
+whoami
+
+Figure Out What Directory You're Working In:
+
+pwd
+
+Read Text File:
+
+less (path to text file)
+Ex. less /etc/fstab
+
+CREATE A TEXTILE WITHOUT USING AN EDITOR
+
+cat > text.txt
+
+Add A Line To The End Of A File:
+
+cat >> text.file
+
+Get Info From A Command In Real Time:
+
+watch (command)
+Ex. watch free -h
+
+FILE SYSTEM (EXT4) TWEAKS:
+
+Write out all data to drives:
+
+sync
+
+CHeck File System For Errors:
+
+sudo fsck /dev/(partition)
+Ex. sudo fsck /dev/sdc1
+
+Force fssck At Boot time:
+
+sudo touch /forcefsck
+
+SSD TRIM Command:
+
+fstrim mount point
+Ex. sudo fstrim /
+Ex. sudo fstrim /home
+
+File Defragmentation (for spinning drives only):
+
+e4defrag (filename, path or mount point)
+Ex. sudo e4defrag big-file.mp4
+EX. sudo e4defrag /Videos
+EX. sudo e4defrag /dev/sda3
+
+Reset reserved space to 1%:
+
+tune2fs -m 1 /dev/(partition)
+Ex. sudo tune2fs -m 1 /dev/sda1
+
+ADJUST SWAPPINESS FOR BETTER PERFORMANCE:
+
+To Find Swappiness:
+
+cat /proc/sys/vm/swappiness
+
+To Set Swappiness:
+
+sudo bash -c "echo 'vm.swappiness = 10' >> /etc/sysctl.conf"
+
+OR:
+
+sudo nano /etc/sysctl.conf
+
+Add line: vm.swappiness = 10
+
+CLEAN-UP COMMANDS FOR DEBIAN/UBUNTU SYSTEMS:
+
+Remove Orphaned Programs:
+
+sudo apt autoremove
+
+Remove Old Packages From APT Cache:
+
+sudo apt autoclean
+
+Clear ALL Packages from APT Cache:
+
+sudo apt clean
+
