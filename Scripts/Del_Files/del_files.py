@@ -3,18 +3,15 @@
 """
    delFiles - Delete log files(support several deletion method)
 
-   Version: 2.1 (2017-03-2)
+   Version: 2.3 (2017-03-4)
    Dev: Shavit Ilan (ilan.shavit@gmail.com)
 """
 
-
-### import section ###
 import logging
 import glob
 from ConfigParser import SafeConfigParser
 from datetime import date
 import os
-import sys
 
 
 def del_file_timestamp(base_dir, files_template, keep_files, \
@@ -31,31 +28,32 @@ def del_file_timestamp(base_dir, files_template, keep_files, \
     all_dir[1].append('.')
 
     for each_dir in all_dir[1]:
-        try:
-            os.chdir(base_dir)
-            os.chdir(each_dir)
-            files_list = glob.glob(files_template)
-            files_list = sorted(files_list)
-            num_files = len(files_list)
+        os.chdir(base_dir)
+        os.chdir(each_dir)
+        files_list = glob.glob(files_template)
+        files_list = sorted(files_list)
+        num_files = len(files_list)
+
+        if (num_files - keep_files) <= 0:
+            log_message = "%s/%s: No files to delete..." % (base_dir, each_dir)
+            if simulation_mode == 'Y':
+                print log_message
+            else:
+                logging.info(log_message)
 
 
-            if (num_files - keep_files) <= 0:
-                log_message = "%s/%s: No files to delete..." % (base_dir, each_dir)
-                if simulation_mode == 'Y':
-                    print log_message
-                else:
-                    logging.info(log_message)
-
-
-            for temp_i in range(num_files - int(keep_files)):
-                log_message = "%s/%s/%s" % (base_dir, each_dir, files_list[temp_i])
-                if simulation_mode == 'Y':
-                    print log_message + " - Going to delete..."
-                else:
-                    logging.info(log_message + " - Deleted!")
+        for temp_i in range(num_files - int(keep_files)):
+            log_message = "%s/%s/%s" % (base_dir, each_dir, files_list[temp_i])
+            if simulation_mode == 'Y':
+                print log_message + " - Going to delete..."
+            else:
+                try:
                     os.remove(files_list[temp_i])
-        except:
-            pass
+                    logging.info(log_message + " - Deleted!")
+                except OSError:
+                    log_message = "%s/%s/%s - OSError exception raised !!!" %\
+                            (base_dir, each_dir, files_list[temp_i])
+                    logging.error(log_message)
 
 
 def del_file_creation(base_dir, files_template, keep_days, simulation_mode, \
@@ -71,14 +69,14 @@ def del_file_creation(base_dir, files_template, keep_days, simulation_mode, \
         all_dir.append([])
     all_dir[1].append('.')
 
+    current_date = date.today()
     for each_dir in all_dir[1]:
-        try:
-            os.chdir(base_dir)
-            os.chdir(each_dir)
-            current_date = date.today()
-            files = glob.glob(files_template)
-            need_delete = False
-            for each_file in files:
+        os.chdir(base_dir)
+        os.chdir(each_dir)
+        files = glob.glob(files_template)
+        need_delete = False
+        for each_file in files:
+            try:
                 the_file = os.path.getmtime(each_file)
                 the_file_ts = date.fromtimestamp(the_file)
                 days_diff = (current_date - the_file_ts).days
@@ -88,30 +86,36 @@ def del_file_creation(base_dir, files_template, keep_days, simulation_mode, \
                     if simulation_mode == 'Y':
                         print log_message + " - Going to delete..."
                     else:
-                        if need_delete:
-                            os.remove(each_file)
-                            logging.info(log_message + " - Deleted!")
-            if not need_delete:
-                log_message = "%s/%s -  No files to delete..." % (base_dir, each_dir)
-                if simulation_mode == 'Y':
-                    print log_message
-                else:
-                    logging.info(log_message)
-        except:
-            pass
+                        os.remove(each_file)
+                        logging.info(log_message + " - Deleted!")
+            except OSError:
+                log_message = "%s/%s/%s -  OSError Excepion Raised !!!" %\
+                        (base_dir, each_dir, each_file)
+                logging.error(log_message)
+            except TypeError:
+                log_message = "%s/%s/%s -  TypeError Exception Raised !!!" %\
+                        (base_dir, each_dir, each_file)
+                logging.error(log_message)
+            except Exception, the_err:
+                log_message = "%s/%s/%s - %s !!!" %\
+                        (base_dir, each_dir, each_file, str(the_err))
+                logging.error(log_message)
+
+        if not need_delete:
+            log_message = "%s/%s -  No files to delete..." %\
+                        (base_dir, each_dir)
+            if simulation_mode == 'Y':
+                print log_message
+            else:
+                logging.info(log_message)
 
 
 def main():
     """
         Explain the function of the main program
     """
-    # Initialize Parser and logging modules
-    if 'linux' in sys.platform:
-        ini_file = sys.argv[0].replace("del_files.py", "del_files.ini")
-        log_file = sys.argv[0].replace("del_files.py", "del_files.log")
-    elif 'win' in sys.platform:
-        ini_file = sys.argv[0].replace("del_files.exe", "del_files.ini")
-        log_file = sys.argv[0].replace("del_files.exe", "del_files.log")
+    ini_file = "del_files.ini"
+    log_file = "del_files.log"
 
     logging.basicConfig(filename=log_file, level=logging.INFO,\
         format='%(asctime)s - %(levelname)s - %(message)s')
