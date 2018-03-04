@@ -1,4 +1,4 @@
-# .BASHRC PI  version 2.8 (2018-02-23)
+# .BASHRC PI NAS version 2.9 (2018-03-03)
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -57,8 +57,6 @@ alias vimrc='grep VIMRC ~/.vimrc'
 alias bashrc='grep .BASHRC ~/.bashrc |grep -v alias'
 alias en='export LANG=en_US.UTF8'
 alias he='export LANG=he_IL.UTF8'
-alias rclone_music="/home/pi/Bin/rclone/rclone sync /STORAGE1/Public/Music/ ilsh_music:Rclone/Music"
-alias rclone_rclone="/home/pi/Bin/rclone/rclone sync /STORAGE1/Rclone/ ilsh_music:Rclone"
 
 #APT-GET
 alias update='sudo apt-get update'
