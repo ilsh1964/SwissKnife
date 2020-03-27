@@ -1,5 +1,0 @@
-<p>GGG... After Ajax working<br>
-lll<br />
-asdasd<br />
-kaskasd</p>
-

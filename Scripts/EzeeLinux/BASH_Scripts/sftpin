@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# SFTP Shorthand command: "sftpin" (last two digits of host IP)
-
-sftp 192.168.0."$1"
-

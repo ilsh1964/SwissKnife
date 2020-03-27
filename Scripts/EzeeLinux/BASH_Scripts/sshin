@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# SSH login shorthand command: "sshin(x) (last two digits of IP)"
-
-ssh -X 192.168.0."$1"
-
