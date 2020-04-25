@@ -1,0 +1,4 @@
+#!/bin/bash
+date >> /backup/dailyBackup/backupLogs
+tar -cpzf /backup/dailyBackup/home.tgz --exclude /home/mythtv --exclude /home/dana/.gdesklets --exclude /home/ilan/.gdesklets --exclude /home/ilan/.gvfs  /home 2>>/backup/dailyBackup/backupLogs
+# ts.pl -m /backup/dailyBackup/home.tgz 2>>/backup/dailyBackup/backupLogs
