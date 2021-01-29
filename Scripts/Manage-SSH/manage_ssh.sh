@@ -12,7 +12,7 @@ What would you like to do?
     2 - Copy ${USER} public key to remote server
     3 - Fix .ssh local permission for ${USER}
     4 - Fix 'Agent admitted failure to sign using the key'
-    5 - Examine 'AuthorizedKeyFile' in /etc/sshd_config
+    5 - Examine 'AuthorizedKeyFile' in /etc/ssh/sshd_config
     0 - Exit
 _EOF_
 }
@@ -63,13 +63,13 @@ fix_agent_failure() {
 }
 
 examine_ssh_config() {
-    result=$(grep -E "^AuthorizedKeyFile=.ssh/authorized_keysDone" /etc/sshd_config | wc -l)
+    result=$(grep -E "^AuthorizedKeyFile=.ssh/authorized_keys" /etc/ssh/sshd_config | wc -l)
     if [ $result -eq 1 ]
     then
         echo "Test result: GOOD"
     else
         echo "Test result: BAD"
-        echo "No 'AuthorizedKeyFile=.ssh/authorized_keysDone' in /etc/sshd_config"
+        echo "No 'AuthorizedKeyFile=.ssh/authorized_keys' in /etc/sshd_config"
         echo "Add\Uncomment line in /etc/sshd_config"
     fi
     sleep 1
